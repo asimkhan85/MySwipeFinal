@@ -1,9 +1,9 @@
-let current = 1;
-const total = 6;
+let images = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png"];
+let index = 0;
+
+const img = document.getElementById("mainImage");
 
 let startX = 0;
-
-const img = document.getElementById("photo");
 
 img.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
@@ -13,15 +13,14 @@ img.addEventListener("touchend", (e) => {
     let endX = e.changedTouches[0].clientX;
 
     if (startX - endX > 50) {
-        // Left swipe
-        current++;
-        if (current > total) current = 1;
-    } 
-    else if (endX - startX > 50) {
-        // Right swipe
-        current--;
-        if (current < 1) current = total;
+        // Swipe Left → Next Image
+        index = (index + 1) % images.length;
+        img.src = images[index];
     }
 
-    img.src = `${current}.png`;
+    if (endX - startX > 50) {
+        // Swipe Right → Previous Image
+        index = (index - 1 + images.length) % images.length;
+        img.src = images[index];
+    }
 });
