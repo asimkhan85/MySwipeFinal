@@ -1,24 +1,40 @@
-let images = ["img1.png", "img2.png", "img3.png"];
-let index = 0;
-
-let img = document.getElementById("mainImage");
+let currentIndex = 1;
+const totalImages = 5; // JITNI photos hain utna number kar dena
+const mainImage = document.getElementById("mainImage");
 
 let startX = 0;
 
-img.addEventListener("touchstart", (e) => {
+// Touch start
+mainImage.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
 });
 
-img.addEventListener("touchend", (e) => {
+// Touch end
+mainImage.addEventListener("touchend", (e) => {
     let endX = e.changedTouches[0].clientX;
+    let diff = startX - endX;
 
-    if (startX - endX > 50) {
-        // NEXT image
-        index = (index + 1) % images.length;
-        img.src = images[index];
-    } else if (endX - startX > 50) {
-        // PREVIOUS image
-        index = (index - 1 + images.length) % images.length;
-        img.src = images[index];
+    if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+            nextImage();   // swipe left
+        } else {
+            prevImage();   // swipe right
+        }
     }
 });
+
+function nextImage() {
+    currentIndex++;
+    if (currentIndex > totalImages) currentIndex = 1;
+    updateImage();
+}
+
+function prevImage() {
+    currentIndex--;
+    if (currentIndex < 1) currentIndex = totalImages;
+    updateImage();
+}
+
+function updateImage() {
+    mainImage.src = `images/${currentIndex}.png`;
+}
