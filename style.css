@@ -1,14 +1,25 @@
 body {
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     background: #000;
 }
 
-.gallery img {
+.swiper-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
     width: 90%;
-    max-width: 500px;
+    height: auto;
     border-radius: 10px;
+    object-fit: contain;
 }
