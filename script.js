@@ -1,29 +1,24 @@
-let current = 0;
-let slides = document.querySelectorAll(".swiper-slide");
+let images = ["img1.png", "img2.png", "img3.png"];
+let index = 0;
 
-function showSlide(n) {
-    slides.forEach((s, i) => {
-        s.style.display = (i === n) ? "flex" : "none";
-    });
-}
-
-showSlide(current);
+let img = document.getElementById("mainImage");
 
 let startX = 0;
 
-document.addEventListener("touchstart", (e) => {
+img.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
 });
 
-document.addEventListener("touchend", (e) => {
+img.addEventListener("touchend", (e) => {
     let endX = e.changedTouches[0].clientX;
 
     if (startX - endX > 50) {
-        current = (current + 1) % slides.length;  // next
-    } 
-    else if (endX - startX > 50) {
-        current = (current - 1 + slides.length) % slides.length; // previous
+        // NEXT image
+        index = (index + 1) % images.length;
+        img.src = images[index];
+    } else if (endX - startX > 50) {
+        // PREVIOUS image
+        index = (index - 1 + images.length) % images.length;
+        img.src = images[index];
     }
-
-    showSlide(current);
 });
