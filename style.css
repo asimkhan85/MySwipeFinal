@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.viewer {
+    width: 100%;
+    max-width: 400px; /* यह बदलकर size control होता है */
+    overflow: hidden;
+}
+
+.viewer img {
+    width: 100%;
+    height: auto;
+    display: block;
+    user-select: none;
+}
