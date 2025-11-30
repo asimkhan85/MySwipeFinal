@@ -1,26 +1,29 @@
-let images = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png"];
-let index = 0;
+let current = 0;
+let slides = document.querySelectorAll(".swiper-slide");
 
-const img = document.getElementById("mainImage");
+function showSlide(n) {
+    slides.forEach((s, i) => {
+        s.style.display = (i === n) ? "flex" : "none";
+    });
+}
+
+showSlide(current);
 
 let startX = 0;
 
-img.addEventListener("touchstart", (e) => {
+document.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
 });
 
-img.addEventListener("touchend", (e) => {
+document.addEventListener("touchend", (e) => {
     let endX = e.changedTouches[0].clientX;
 
     if (startX - endX > 50) {
-        // Swipe Left → Next Image
-        index = (index + 1) % images.length;
-        img.src = images[index];
+        current = (current + 1) % slides.length;  // next
+    } 
+    else if (endX - startX > 50) {
+        current = (current - 1 + slides.length) % slides.length; // previous
     }
 
-    if (endX - startX > 50) {
-        // Swipe Right → Previous Image
-        index = (index - 1 + images.length) % images.length;
-        img.src = images[index];
-    }
+    showSlide(current);
 });
